@@ -7,9 +7,9 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <!-- ===============================================
+    <!--/* ===============================================
     =                   PLUGINS CSS                   =
-    =============================================== -->
+    =============================================== */-->
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="vistas/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -56,8 +56,12 @@
     /*===============================================
     =           CONTENIDO TEMPORAL                =
     ===============================================*/
+    if(isset($_GET["ruta"])){
+        if ($_GET["ruta"] == "inicio"){
+            include "modulos/inicio.php";
+        }
+    }
 
-    include "modulos/contenido.php";
 
     /*===============================================
     =           FOOTER                =
@@ -70,7 +74,7 @@
 </div>
 <!-- ./wrapper -->
 
-<script src="vistas/js/plantilla.js"></script>
+
 <!-- ===============================================
     =                   PLUGINS JS                   =
     =============================================== -->
@@ -86,6 +90,7 @@
 <!-- AdminLTE App -->
 <script src="vistas/dist/js/adminlte.min.js"></script>
 
+<script src="vistas/js/plantilla.js"></script>
 
 </body>
 </html>
