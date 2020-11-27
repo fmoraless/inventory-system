@@ -1,6 +1,6 @@
 <?php
 
-class ControladorPlantilla
+class ControladorProductos
 {
     public function ctrPlantilla()
     {
