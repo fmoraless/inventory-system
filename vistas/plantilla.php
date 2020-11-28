@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,53 +42,60 @@
     =           Cuerpo DOCUMENTO                   =
     =============================================== -->
 
-<body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
+<body class="hold-transition skin-blue sidebar-collapse sidebar-mini login-page">
 <!-- Site wrapper -->
-<div class="wrapper">
+
 
     <?php
+        if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
 
-    /*===============================================
-    =           CABECERA                            =
-    ===============================================*/
-        include "modulos/cabecera.php";
 
-    /*===============================================
-    =           MENU                               =
-    ===============================================*/
-    include "modulos/menu.php";
+            echo '<div class="wrapper">';
 
-    /*===============================================
-    =           CONTENIDO TEMPORAL                =
-    ===============================================*/
-    if(isset($_GET["ruta"])){
-        if ($_GET["ruta"] == "inicio" ||
-            $_GET["ruta"] == "usuarios" ||
-            $_GET["ruta"] == "categorias" ||
-            $_GET["ruta"] == "productos" ||
-            $_GET["ruta"] == "clientes" ||
-            $_GET["ruta"] == "ventas" ||
-            $_GET["ruta"] == "crear-venta" ||
-            $_GET["ruta"] == "reportes"){
+            /*===============================================
+            =           CABECERA                            =
+            ===============================================*/
+                include "modulos/cabecera.php";
 
-            include "modulos/".$_GET["ruta"].".php";
+            /*===============================================
+            =           MENU                               =
+            ===============================================*/
+            include "modulos/menu.php";
+
+            /*===============================================
+            =           CONTENIDO TEMPORAL                =
+            ===============================================*/
+            if(isset($_GET["ruta"])){
+                if ($_GET["ruta"] == "inicio" ||
+                    $_GET["ruta"] == "usuarios" ||
+                    $_GET["ruta"] == "categorias" ||
+                    $_GET["ruta"] == "productos" ||
+                    $_GET["ruta"] == "clientes" ||
+                    $_GET["ruta"] == "ventas" ||
+                    $_GET["ruta"] == "crear-venta" ||
+                    $_GET["ruta"] == "reportes"){
+
+                    include "modulos/".$_GET["ruta"].".php";
+                }else{
+                    include "modulos/404.php";
+                }
+            }else{
+                include "modulos/inicio.php";
+            }
+
+
+        /*===============================================
+        =           FOOTER                =
+        ===============================================*/
+
+        include "modulos/footer.php";
+
+            echo '</div>';
+
         }else{
-            include "modulos/404.php";
+            include "modulos/login.php";
         }
-    }else{
-        include "modulos/inicio.php";
-    }
-
-
-    /*===============================================
-    =           FOOTER                =
-    ===============================================*/
-
-    include "modulos/footer.php";
-    ?>
-
-
-</div>
+   ?>
 <!-- ./wrapper -->
 
 
