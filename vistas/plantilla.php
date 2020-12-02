@@ -26,6 +26,9 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="vistas/dist/css/skins/_all-skins.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="vistas/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="vistas/bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -114,6 +117,12 @@
 
 <!-- AdminLTE App -->
 <script src="vistas/dist/js/adminlte.min.js"></script>
+
+<!-- DataTables -->
+<script src="vistas/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="vistas/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="vistas/bower_components/datatables.net-bs/js/dataTables.responsive.min.js"></script>
+<script src="vistas/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
 
 <script src="vistas/js/plantilla.js"></script>
 
