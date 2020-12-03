@@ -39,6 +39,10 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <!-- SweetAlert 2 -->
+    <link rel="stylesheet" href="vistas/plugins/sweetAlert2/sweetalert2.min.css">
+    <script src="vistas/plugins/sweetAlert2/sweetalert2.all.min.js"></script>
 </head>
 
 <!-- ===============================================
@@ -123,6 +127,9 @@
 <script src="vistas/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="vistas/bower_components/datatables.net-bs/js/dataTables.responsive.min.js"></script>
 <script src="vistas/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
+
+
+
 
 <script src="vistas/js/plantilla.js"></script>
 
