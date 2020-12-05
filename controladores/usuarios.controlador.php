@@ -55,38 +55,38 @@ class ControladorUsuarios
                     "password" => $_POST["nuevoPassword"],
                     "perfil" => $_POST["nuevoPerfil"]
                 );
-
+                /*var_dump($datos);*/
                 $respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla, $datos);
+                /*var_dump($respuesta);
+                return;*/
 
                 if ($respuesta == "ok"){
                     echo '<script>
-                        Swal.fire({
-                            icon: "success",
+                        swal({
+                            type: "success",
                             title: "¡El usuario ha sido guardado correctamente",
                             showConfirmButton: true,
                             confirmButtonText: "Cerrar",
                             closeOnConfirm: false
-                        }).then((result){
+                        }).then((result)=>{
                             if(result.value){
                                 window.location = "usuarios";
                             }
                         });
                       </script>';
-                }
-
-            }else{
+                }}else{
                 echo '<script>
-                        Swal.fire({
-                            icon: "error",
+                        swal({
+                            type: "error",
                             title: "¡El usuario no puede ir vacío ni ingresar caracteres especiales.!",
                             showConfirmButton: true,
                             confirmButtonText: "Cerrar",
                             closeOnConfirm: false
-                        }).then((result){
+                        }).then((result)=>{
                             if(result.value){
                                 window.location = "usuarios";
                             }
-                        });
+                        })
                       </script>';
             }
         }
