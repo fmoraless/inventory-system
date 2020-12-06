@@ -23,6 +23,14 @@ class ControladorUsuarios
                 {
 //                    echo '<br><div class="alert alert-success">Correcto</div>';
                     $_SESSION["iniciarSesion"] = "ok";
+                    $_SESSION["id"] = $respuesta["id"];
+                    $_SESSION["nombre"] = $respuesta["nombre"];
+                    $_SESSION["usuario"] = $respuesta["usuario"];
+                    $_SESSION["usuario"] = $respuesta["usuario"];
+                    $_SESSION["foto"] = $respuesta["foto"];
+                    $_SESSION["foto"] = $respuesta["foto"];
+                    $_SESSION["perfil"] = $respuesta["perfil"];
+
                     echo '<script>
                             window.location = "inicio";
                           </script>';
