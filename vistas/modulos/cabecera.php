@@ -38,7 +38,7 @@
                                 }else{
                                     '<img src="vistas/img/usuarios/default/anonymous.png" class="user-image">';
                                 }
-                                
+
                             ?>
 
                             <span class="hidden-xs"><?php echo $_SESSION["nombre"] ?></span>
