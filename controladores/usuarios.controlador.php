@@ -7,9 +7,9 @@ class ControladorUsuarios
     =================================*/
     static public function ctrIngresoUsuario()
     {
-        if (isset($_POST["ingUsuario"])){
+        if (isset($_POST["ingUsuario"])) {
             if (preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingUsuario"]) &&
-                preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])){
+                preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])) {
 
                 $encriptar = crypt($_POST["ingPassword"], '$2a$07$usesomesillystringforsalt$');
 
@@ -19,8 +19,7 @@ class ControladorUsuarios
                 $valor = $_POST["ingUsuario"];
 
                 $respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
-                if($respuesta["usuario"] == $_POST["ingUsuario"] && $respuesta["password"] == $encriptar)
-                {
+                if ($respuesta["usuario"] == $_POST["ingUsuario"] && $respuesta["password"] == $encriptar) {
 //                    echo '<br><div class="alert alert-success">Correcto</div>';
                     $_SESSION["iniciarSesion"] = "ok";
                     $_SESSION["id"] = $respuesta["id"];
@@ -34,12 +33,9 @@ class ControladorUsuarios
                     echo '<script>
                             window.location = "inicio";
                           </script>';
-                }else{
+                } else {
                     echo '<br><div class="alert alert-danger">Fallido</div>';
                 }
-
-
-
 
 
             }
@@ -51,50 +47,50 @@ class ControladorUsuarios
     =================================*/
     static public function ctrCrearUsuario()
     {
-        if (isset($_POST["nuevoUsuario"])){
+        if (isset($_POST["nuevoUsuario"])) {
 
-            if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["nuevoNombre"]) &&
+            if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) &&
                 preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoUsuario"]) &&
-                preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoPassword"])){
+                preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoPassword"])) {
 
                 /*=================================
                  * VALIDAR IMAGEN
                  ================================*/
                 $ruta = "";
-                if (isset($_FILES["nuevaFoto"]["tmp_name"])){
+                if (isset($_FILES["nuevaFoto"]["tmp_name"])) {
                     //var_dump($_FILES["nuevaFoto"]["tmp_name"]);
-                   list($ancho, $alto) = getimagesize($_FILES["nuevaFoto"]["tmp_name"]);
-                   $nuevoAncho = 500;
-                   $nuevoAlto = 500;
+                    list($ancho, $alto) = getimagesize($_FILES["nuevaFoto"]["tmp_name"]);
+                    $nuevoAncho = 500;
+                    $nuevoAlto = 500;
 
                     /*=================================
                      * CREAR DIRECTORIO IMAGEN
                     ================================*/
 
-                    $directorio = "vistas/img/usuarios/".$_POST["nuevoUsuario"];
+                    $directorio = "vistas/img/usuarios/" . $_POST["nuevoUsuario"];
                     mkdir($directorio, 0755);
 
-                    if ($_FILES["nuevaFoto"]["type"] == "image/jpeg"){
+                    if ($_FILES["nuevaFoto"]["type"] == "image/jpeg") {
                         //GUARDAR IMAGEN
-                        $aleatorio = mt_rand(100,999);
-                        $ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio.".jpg";
+                        $aleatorio = mt_rand(100, 999);
+                        $ruta = "vistas/img/usuarios/" . $_POST["nuevoUsuario"] . "/" . $aleatorio . ".jpg";
 
                         $origen = imagecreatefromjpeg($_FILES["nuevaFoto"]["tmp_name"]);
 
                         $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-                        imagecopyresized($destino, $origen,0,0,0,0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+                        imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
 
                         imagejpeg($destino, $ruta);
                     }
-                    if ($_FILES["nuevaFoto"]["type"] == "image/png"){
+                    if ($_FILES["nuevaFoto"]["type"] == "image/png") {
                         //GUARDAR IMAGEN
-                        $aleatorio = mt_rand(100,999);
-                        $ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio.".png";
+                        $aleatorio = mt_rand(100, 999);
+                        $ruta = "vistas/img/usuarios/" . $_POST["nuevoUsuario"] . "/" . $aleatorio . ".png";
 
                         $origen = imagecreatefrompng($_FILES["nuevaFoto"]["tmp_name"]);
 
                         $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-                        imagecopyresized($destino, $origen,0,0,0,0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+                        imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
 
                         imagepng($destino, $ruta);
                     }
@@ -118,7 +114,7 @@ class ControladorUsuarios
                 /*var_dump($respuesta);
                 return;*/
 
-                if ($respuesta == "ok"){
+                if ($respuesta == "ok") {
                     echo '<script>
                         swal({
                             type: "success",
@@ -132,7 +128,8 @@ class ControladorUsuarios
                             }
                         });
                       </script>';
-                }}else{
+                }
+            } else {
                 echo '<script>
                         swal({
                             type: "error",
@@ -151,13 +148,145 @@ class ControladorUsuarios
     }
 
     /*================================
-    LISTAR USUARIOS
+    Listar USUARIOS
     =================================*/
     static public function ctrListarUsuarios($item, $valor)
     {
-        $tabla ="usuarios";
+        $tabla = "usuarios";
         $respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
 
         return $respuesta;
+    }
+
+
+    /*================================
+        EDITAR USUARIO
+    =================================*/
+    static public function ctrEditarUsuario()
+    {
+        if (isset($_POST["editarUsuario"])) {
+
+            if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"])) {
+
+                /*================================
+                    VALIDAR IMAGEN
+                =================================*/
+                $ruta = $_POST["fotoActual"];
+
+                if (isset($_FILES["editarFoto"]["tmp_name"]) && !empty($_FILES["editarFoto"]["tmp_name"])) {
+                    //var_dump($_FILES["nuevaFoto"]["tmp_name"]);
+                    list($ancho, $alto) = getimagesize($_FILES["editarFoto"]["tmp_name"]);
+                    $nuevoAncho = 500;
+                    $nuevoAlto = 500;
+
+                    /*=================================
+                     * CREAR DIRECTORIO IMAGEN
+                    ================================*/
+
+                    $directorio = "vistas/img/usuarios/" . $_POST["editarUsuario"];
+
+                    /* Preguntamos si existe una foto en la BD */
+
+                    if (!empty($_POST["fotoActual"])) {
+                        unlink($_POST["fotoActual"]);
+                    } else {
+                        mkdir($directorio, 0755);
+                    }
+
+                    /*=============================================
+                    DE ACUERDO AL TIPO DE IMAGEN APLICAMOS LAS FUNCIONES POR DEFECTO DE PHP
+                    =============================================*/
+                    if ($_FILES["editarFoto"]["type"] == "image/jpeg") {
+                        //GUARDAR IMAGEN
+                        $aleatorio = mt_rand(100, 999);
+                        $ruta = "vistas/img/usuarios/" . $_POST["editarUsuario"] . "/" . $aleatorio . ".jpg";
+
+                        $origen = imagecreatefromjpeg($_FILES["editarFoto"]["tmp_name"]);
+
+                        $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+                        imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+
+                        imagejpeg($destino, $ruta);
+                    }
+                    if ($_FILES["editarFoto"]["type"] == "image/png") {
+                        //GUARDAR IMAGEN
+                        $aleatorio = mt_rand(100, 999);
+                        $ruta = "vistas/img/usuarios/" . $_POST["editarUsuario"] . "/" . $aleatorio . ".png";
+
+                        $origen = imagecreatefrompng($_FILES["editarFoto"]["tmp_name"]);
+
+                        $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+                        imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+
+                        imagepng($destino, $ruta);
+                    }
+
+                }
+                $tabla = "usuarios";
+
+                if ($_POST["editarPassword"] != "") {
+
+                    if (preg_match('/^[a-zA-Z0-9]+$/', $_POST["editarPassword"])) {
+                        $encriptar = crypt($_POST["editarPassword"], '$2a$07$usesomesillystringforsalt$');
+                    } else {
+                        echo '<script>
+                            swal({
+                                type: "error",
+                                title: "¡El usuario no puede ir vacío ni ingresar caracteres especiales.!",
+                                showConfirmButton: true,
+                                confirmButtonText: "Cerrar",
+                                closeOnConfirm: false
+                            }).then((result)=>{
+                                if(result.value){
+                                    window.location = "usuarios";
+                                }
+                            })
+                          </script>';
+                    }
+                } else {
+                    $encriptar = $_POST["passwordActual"];
+                }
+                $datos = array(
+                    "nombre" => $_POST["editarNombre"],
+                    "usuario" => $_POST["editarUsuario"],
+                    "password" => $encriptar,
+                    "perfil" => $_POST["editarPerfil"],
+                    "foto" => $ruta
+                );
+                $respuesta = ModeloUsuarios::mdlEditarUsuario($tabla, $datos);
+                /*var_dump($respuesta);
+                return;*/
+
+                if ($respuesta == "ok") {
+                    echo '<script>
+                        swal({
+                            type: "success",
+                            title: "¡El usuario ha sido guardado correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false
+                        }).then((result)=>{
+                            if(result.value){
+                                window.location = "usuarios";
+                            }
+                        });
+                      </script>';
+                }
+            } else {
+                echo '<script>
+                    swal({
+                        type: "error",
+                        title: "¡El nombre no puede ir vacío ni ingresar caracteres especiales.!",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar",
+                        closeOnConfirm: false
+                    }).then((result)=>{
+                        if(result.value){
+                            window.location = "usuarios";
+                        }
+                    })
+                  </script>';
+            }
+        }
     }
 }
