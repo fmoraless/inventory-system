@@ -21,18 +21,22 @@ class ControladorUsuarios
                 $respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
                 if ($respuesta["usuario"] == $_POST["ingUsuario"] && $respuesta["password"] == $encriptar) {
 //                    echo '<br><div class="alert alert-success">Correcto</div>';
-                    $_SESSION["iniciarSesion"] = "ok";
-                    $_SESSION["id"] = $respuesta["id"];
-                    $_SESSION["nombre"] = $respuesta["nombre"];
-                    $_SESSION["usuario"] = $respuesta["usuario"];
-                    $_SESSION["usuario"] = $respuesta["usuario"];
-                    $_SESSION["foto"] = $respuesta["foto"];
-                    $_SESSION["foto"] = $respuesta["foto"];
-                    $_SESSION["perfil"] = $respuesta["perfil"];
+                    if ($respuesta ["estado"] == 1) {
+                        $_SESSION["iniciarSesion"] = "ok";
+                        $_SESSION["id"] = $respuesta["id"];
+                        $_SESSION["nombre"] = $respuesta["nombre"];
+                        $_SESSION["usuario"] = $respuesta["usuario"];
+                        $_SESSION["usuario"] = $respuesta["usuario"];
+                        $_SESSION["foto"] = $respuesta["foto"];
+                        $_SESSION["foto"] = $respuesta["foto"];
+                        $_SESSION["perfil"] = $respuesta["perfil"];
 
-                    echo '<script>
-                            window.location = "inicio";
-                          </script>';
+                        echo '<script>
+                                window.location = "inicio";
+                              </script>';
+                    }else{
+                        echo '<br><div class="alert alert-danger">Usuario inhabilitado</div>';
+                    }
                 } else {
                     echo '<br><div class="alert alert-danger">Fallido</div>';
                 }
