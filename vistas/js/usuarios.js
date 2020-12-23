@@ -102,8 +102,8 @@ $(".btnActivar").click(function() {
         $(this).attr('estadoUsuario', 1);
 
     }else {
-        $(this).addClass('btn-success');
         $(this).remove('btn-danger');
+        $(this).addClass('btn-success');
         $(this).html('Activado');
         $(this).attr('estadoUsuario', 0);
     }
