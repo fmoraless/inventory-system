@@ -37,6 +37,19 @@ class AjaxUsuarios{
 
         $repuesta = ModeloUsuarios::mdlActualizarUsuario($tabla, $item1, $valor1, $item2, $valor2);
     }
+
+    /*========================
+    * VALIDAR NO REPETIR USUARIO
+   =========================*/
+    public $validarUsuario;
+    public function ajaxValidarUsuario(){
+        $item = "usuario";
+        $valor = $this->validarUsuario;
+
+        $respuesta = ControladorUsuarios::ctrListarUsuarios($item, $valor);
+
+        echo json_encode($respuesta);
+    }
 }
 
 /*====================
@@ -57,4 +70,17 @@ if (isset($_POST["activarUsuario"])){
     $activarUsuario->activarId = $_POST["activarId"];
     $activarUsuario->ajaxActivarUsuario();
 }
+
+/*========================
+    * VALIDAR NO REPETIR USUARIOS
+=========================*/
+if (isset($_POST["validarUsuario"])){
+    $validarUsuario = new AjaxUsuarios();
+    $validarUsuario->validarUsuario = $_POST["validarUsuario"];
+    $validarUsuario->ajaxValidarUsuario();
+}
+
+
+
+
 

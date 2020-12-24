@@ -122,7 +122,7 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                <input type="text" class="form-control input-lg" name="nuevoUsuario"
+                                <input type="text" class="form-control input-lg" id="nuevoUsuario"
                                        placeholder="Ingresar Usuario" required>
                             </div>
                         </div>
