@@ -88,13 +88,17 @@ class ControladorUsuarios
                      * CREAR DIRECTORIO IMAGEN
                     ================================*/
 
-                    $directorio = "vistas/img/usuarios/" . $_POST["nuevoUsuario"];
+                    $directorio = "vistas/img/usuarios/".$_POST["nuevoUsuario"];
                     mkdir($directorio, 0755);
+
+                    /*=============================================
+					DE ACUERDO AL TIPO DE IMAGEN APLICAMOS LAS FUNCIONES POR DEFECTO DE PHP
+					=============================================*/
 
                     if ($_FILES["nuevaFoto"]["type"] == "image/jpeg") {
                         //GUARDAR IMAGEN
                         $aleatorio = mt_rand(100, 999);
-                        $ruta = "vistas/img/usuarios/" . $_POST["nuevoUsuario"] . "/" . $aleatorio . ".jpg";
+                        $ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"] ."/".$aleatorio.".jpg";
 
                         $origen = imagecreatefromjpeg($_FILES["nuevaFoto"]["tmp_name"]);
 
@@ -106,7 +110,7 @@ class ControladorUsuarios
                     if ($_FILES["nuevaFoto"]["type"] == "image/png") {
                         //GUARDAR IMAGEN
                         $aleatorio = mt_rand(100, 999);
-                        $ruta = "vistas/img/usuarios/" . $_POST["nuevoUsuario"] . "/" . $aleatorio . ".png";
+                        $ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio.".png";
 
                         $origen = imagecreatefrompng($_FILES["nuevaFoto"]["tmp_name"]);
 
@@ -132,8 +136,8 @@ class ControladorUsuarios
                 );
                 /*var_dump($datos);*/
                 $respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla, $datos);
-                /*var_dump($respuesta);
-                return;*/
+                /*var_dump($respuesta);*/
+                /*return;*/
 
                 if ($respuesta == "ok") {
                     echo '<script>
@@ -143,7 +147,7 @@ class ControladorUsuarios
                             showConfirmButton: true,
                             confirmButtonText: "Cerrar",
                             closeOnConfirm: false
-                        }).then((result)=>{
+                        }).then(function (result){
                             if(result.value){
                                 window.location = "usuarios";
                             }
@@ -158,11 +162,11 @@ class ControladorUsuarios
                             showConfirmButton: true,
                             confirmButtonText: "Cerrar",
                             closeOnConfirm: false
-                        }).then((result)=>{
+                        }).then(function (result){
                             if(result.value){
                                 window.location = "usuarios";
                             }
-                        })
+                        });
                       </script>';
             }
         }
@@ -307,6 +311,39 @@ class ControladorUsuarios
                         }
                     })
                   </script>';
+            }
+        }
+    }
+
+    /*================================
+        ELIMINAR USUARIO
+    =================================*/
+    static public function ctrEliminarUsuario()
+    {
+        if (isset($_GET["idUsuario"])){
+            $tabla = "usuarios";
+            $datos = $_GET["idUsuario"];
+
+            if ($_GET["fotoUsuario"] != ""){
+                unlink($_GET["fotoUsuario"]);
+                mkdir('vistas/img/usuarios/'.$_GET["usuario"]);
+            }
+
+            $respuesta = ModeloUsuarios::mdlEliminarUsuario($tabla, $datos);
+            if ($respuesta == "ok") {
+                echo '<script>
+                        swal({
+                            type: "success",
+                            title: "¡El usuario ha sido borrado correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false
+                        }).then((result)=>{
+                            if(result.value){
+                                window.location = "usuarios";
+                            }
+                        });
+                      </script>';
             }
         }
     }

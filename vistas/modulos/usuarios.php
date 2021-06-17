@@ -74,7 +74,7 @@
                             <td>
                                 <div class="btn-group">
                                     <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value["id"].'" data-toggle="modal" data-target="#modalEditarUsuario"><i class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                                    <button class="btn btn-danger btn-eliminarUsuario" idUsuario="'.$value["id"].'" fotoUsuario="'.$value["foto"].'" usuario="'.$value["usuario"].'"><i class="fa fa-times"></i></button>
                                 </div>
                             </td>
                             </tr>
@@ -104,14 +104,19 @@
         <!-- Modal content-->
         <div class="modal-content">
             <form role="form" method="post" enctype="multipart/form-data">
-
+                <!--=====================================
+                        CABEZA DEL MODAL
+                ======================================-->
                 <div class="modal-header" style="background: #3c8dbc; color: white">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Agregar usuario</h4>
                 </div>
-
+                <!--=====================================
+                        CUERPO DEL MODAL
+                ======================================-->
                 <div class="modal-body">
                     <div class="box-body">
+                        <!-- ENTRADA PARA EL NOMBRE -->
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -119,6 +124,7 @@
                                        placeholder="Ingresar Nombre" required>
                             </div>
                         </div>
+                        <!-- ENTRADA PARA EL USUARIO -->
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
@@ -126,6 +132,7 @@
                                        placeholder="Ingresar Usuario" required>
                             </div>
                         </div>
+                        <!-- ENTRADA PARA LA CONTRASEÑA -->
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
@@ -133,6 +140,7 @@
                                        placeholder="Ingresar Contraseña" required>
                             </div>
                         </div>
+                        <!-- ENTRADA PARA SELECCIONAR SU PERFIL -->
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-users"></i></span>
@@ -145,7 +153,7 @@
                                 </select>
                             </div>
                         </div>
-
+                        <!-- ENTRADA PARA SUBIR FOTO -->
                         <div class="form-group">
                             <div class="panel">SUBIR FOTO
                                 <input type="file" class="nuevaFoto" name="nuevaFoto">
@@ -155,7 +163,9 @@
                         </div>
                     </div>
                 </div>
-
+                <!--=====================================
+                        PIE DEL MODAL
+                ======================================-->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
                     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -250,3 +260,8 @@
 
     </div>
 </div>
+
+<?php
+$eliminarUsuario = new ControladorUsuarios();
+$eliminarUsuario->ctrEliminarUsuario();
+?>
